@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
-                Balls = 3;
+                Balls = 7;
                 if(currentLevel!=null)
                 {
                     Destroy(currentLevel);
