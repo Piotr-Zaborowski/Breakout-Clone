@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour
     public GameObject panelPlay;
     public GameObject panelLevelCompleted;
     public GameObject panelLevelFailed;
+    public GameObject panelLevelSelector;
 
     public GameObject[] levels;
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU,INIT,PLAY,LEVELCOMPLETED,LOADLEVEL,GAMEOVER};
+    public enum State { MENU,INIT,PLAY,LEVELCOMPLETED,LOADLEVEL,GAMEOVER,LEVELSELECT};
 
     State state;
 
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int level;
+    private int level=0;
 
     public int Level
     {
@@ -72,6 +73,18 @@ public class GameManager : MonoBehaviour
     {
         SwitchState(State.INIT);
     }
+    public void menuClicked()
+    {
+        SwitchState(State.MENU);
+    }
+
+    public void levelSelectClicked()
+    {
+        SwitchState(State.LEVELSELECT);
+    }
+
+
+
     public void doExitGame()
     {
         Application.Quit();
@@ -115,8 +128,8 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = false;
                 panelPlay.SetActive(true);
                 Score = 0;
-                Level = 0;
-                Balls = 7;
+                //Level = 0;
+                Balls = 3;
                 if(currentLevel!=null)
                 {
                     Destroy(currentLevel);
@@ -151,6 +164,9 @@ public class GameManager : MonoBehaviour
                     PlayerPrefs.SetInt("highscore", Score);
                 }
                 panelLevelFailed.SetActive(true);
+                break;
+            case State.LEVELSELECT:
+                panelLevelSelector.SetActive(true);
                 break;
         }
     }
@@ -218,6 +234,9 @@ public class GameManager : MonoBehaviour
             case State.GAMEOVER:
                 panelPlay.SetActive(false);
                 panelLevelFailed.SetActive(false);
+                break;
+            case State.LEVELSELECT:
+                panelLevelSelector.SetActive(false);
                 break;
         }
 
