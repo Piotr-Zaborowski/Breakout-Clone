@@ -1,21 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelSelector : MonoBehaviour
 {
-    public void ZeroClicked()
+    public Button[] levelButtonArray;
+
+
+    private void ButtonUpdate()
     {
-        GameManager.Instance.Level = 0;
+        for (int i=0; i<levelButtonArray.Length; i++)
+        {
+            if(i==GameManager.Instance.Level)
+            {
+                levelButtonArray[i].gameObject.SetActive(false);
+                ColorBlock colors = levelButtonArray[i].colors;
+                colors.normalColor = Color.red;
+                colors.highlightedColor = new Color32(255, 100, 100, 255);
+                levelButtonArray[i].colors = colors;
+                levelButtonArray[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                ColorBlock colors = levelButtonArray[i].colors;
+                colors.normalColor = Color.white;
+                colors.highlightedColor = new Color32(225, 225, 225, 255);
+                levelButtonArray[i].colors = colors;
+            }
+            
+
+        }
+    }
+
+    private void Start()
+    {
+        ButtonUpdate();
+        for (int i = 0; i < levelButtonArray.Length; i++)
+        {
+            int tmp = i;
+            levelButtonArray[i].onClick.AddListener(() => SelectLevel(tmp));
+        }
     }
 
 
-    public void OneClicked()
+    private void FixedUpdate()
     {
-        GameManager.Instance.Level = 1;
+
     }
-    public void TwoClicked()
+
+    void SelectLevel(int i)
     {
-        GameManager.Instance.Level = 2;
+        //Debug.Log(i);
+        GameManager.Instance.Level = i;
+        ButtonUpdate();
     }
+
 }
