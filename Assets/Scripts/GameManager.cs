@@ -191,13 +191,17 @@ public class GameManager : MonoBehaviour
                         SwitchState(State.GAMEOVER);
                     }
                 }
-
+                
                 if(currentLevel!=null && currentLevel.transform.childCount==0&& isSwitchingState==false)
                 {
                     SwitchState(State.LEVELCOMPLETED);
-
-
                 }
+                if(currentLevel.name=="Level3(Clone)" && currentLevel.transform.childCount == 3 && isSwitchingState == false)
+                {
+                    SwitchState(State.LEVELCOMPLETED);
+                }
+
+
 
                 break;
             case State.LEVELCOMPLETED:
