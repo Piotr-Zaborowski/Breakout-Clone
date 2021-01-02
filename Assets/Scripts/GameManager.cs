@@ -200,6 +200,10 @@ public class GameManager : MonoBehaviour
                 {
                     SwitchState(State.LEVELCOMPLETED);
                 }
+                if (currentLevel.name == "Level4(Clone)" && currentLevel.transform.childCount == 5 && isSwitchingState == false)
+                {
+                    SwitchState(State.LEVELCOMPLETED);
+                }
 
 
 
